@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NeuroFlow AI — Enterprise AI & Intelligent Automation Infrastructure</title>
+  <style>
+    :root {
+      --bg: #06080d;
+      --bg-alt: #0b1018;
+      --panel: #0f1622;
+      --panel-soft: #111b2b;
+      --line: rgba(219, 228, 245, 0.13);
+      --text: #e8eefb;
+      --muted: #b8c4db;
+      --gold: #c9a86a;
+      --blue: #8eaad7;
+      --shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+      --radius: 8px;
+      --container: 1200px;
+      --transition: 420ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Inter, "IBM Plex Sans", "Segoe UI", Arial, sans-serif;
+      background: radial-gradient(circle at 20% -10%, #101a29 0%, var(--bg) 40%), var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+      letter-spacing: 0.01em;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(100% - 3rem, var(--container));
+      margin-inline: auto;
+    }
+
+    .top-nav {
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 1000;
+      background: rgba(6, 9, 14, 0.72);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(201, 168, 106, 0.18);
+    }
+
+    .top-nav .container {
+      min-height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+
+    .logo {
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .logo span {
+      color: var(--gold);
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 1rem 1.3rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .nav-links a {
+      position: relative;
+      transition: color var(--transition);
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -6px;
+      height: 1px;
+      background: var(--gold);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform var(--transition);
+    }
+
+    .nav-links a:hover,
+    .nav-links a:focus-visible {
+      color: var(--text);
+    }
+
+    .nav-links a:hover::after,
+    .nav-links a:focus-visible::after {
+      transform: scaleX(1);
+    }
+
+    section {
+      padding: 6rem 0;
+      position: relative;
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding-top: 7rem;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .hero-gradient,
+    .hero-gradient::before,
+    .hero-gradient::after {
+      position: absolute;
+      inset: -20%;
+      content: "";
+      pointer-events: none;
+      z-index: -3;
+    }
+
+    .hero-gradient {
+      background:
+        radial-gradient(circle at 12% 20%, rgba(142, 170, 215, 0.16), transparent 52%),
+        radial-gradient(circle at 80% 18%, rgba(201, 168, 106, 0.13), transparent 48%),
+        radial-gradient(circle at 50% 110%, rgba(118, 138, 176, 0.2), transparent 56%);
+      animation: driftA 28s ease-in-out infinite alternate;
+    }
+
+    .hero-gradient::before {
+      background: radial-gradient(circle at 72% 68%, rgba(188, 209, 245, 0.08), transparent 45%);
+      animation: driftB 34s ease-in-out infinite alternate;
+      z-index: -2;
+    }
+
+    .hero-gradient::after {
+      background: radial-gradient(circle at 22% 72%, rgba(201, 168, 106, 0.09), transparent 42%);
+      animation: driftC 40s ease-in-out infinite alternate;
+      z-index: -1;
+    }
+
+    #ambient-network {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0.35;
+      z-index: -1;
+    }
+
+    .hero-content {
+      max-width: 860px;
+      text-align: center;
+      transform: translate3d(var(--mx, 0px), var(--my, 0px), 0);
+      transition: transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .kicker {
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 0.11em;
+      font-size: 0.78rem;
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-size: clamp(2.2rem, 5.6vw, 4.2rem);
+      font-weight: 500;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.4rem;
+    }
+
+    .hero p {
+      color: var(--muted);
+      max-width: 710px;
+      margin: 0 auto 2.2rem;
+      font-size: clamp(1rem, 2vw, 1.2rem);
+    }
+
+    .actions {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      border: 1px solid transparent;
+      padding: 0.82rem 1.3rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-size: 0.75rem;
+      transition: all var(--transition);
+      border-radius: 6px;
+      background: transparent;
+      cursor: pointer;
+      color: var(--text);
+    }
+
+    .btn-primary {
+      background: linear-gradient(180deg, rgba(201, 168, 106, 0.95), rgba(178, 144, 82, 0.95));
+      color: #141008;
+      border-color: rgba(255, 235, 198, 0.45);
+      box-shadow: 0 8px 24px rgba(143, 113, 53, 0.28);
+    }
+
+    .btn-secondary {
+      border-color: rgba(184, 196, 219, 0.38);
+      background: rgba(17, 27, 43, 0.48);
+    }
+
+    .btn:hover,
+    .btn:focus-visible {
+      transform: translateY(-1px);
+      filter: brightness(1.05);
+    }
+
+    .section-title {
+      font-size: clamp(1.5rem, 3vw, 2.3rem);
+      margin-bottom: 0.9rem;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+    }
+
+    .section-intro {
+      color: var(--muted);
+      max-width: 760px;
+      margin-bottom: 2.5rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 1rem;
+    }
+
+    .card {
+      grid-column: span 4;
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(15, 22, 34, 0.9), rgba(11, 17, 26, 0.9));
+      padding: 1.35rem;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      transition: transform var(--transition), border-color var(--transition);
+    }
+
+    .card h3 {
+      font-size: 1rem;
+      margin-bottom: 0.55rem;
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .card p,
+    .card li {
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(201, 168, 106, 0.42);
+    }
+
+    .about-grid .card { grid-column: span 4; }
+    .services-grid .card,
+    .industries-grid .card,
+    .process-grid .card,
+    .platform-grid .card,
+    .trust-grid .card,
+    .case-grid .card,
+    .insights-grid .card { grid-column: span 3; }
+
+    .contact-panel {
+      border: 1px solid rgba(201, 168, 106, 0.24);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(18, 28, 44, 0.92), rgba(8, 13, 22, 0.92));
+      padding: 2rem;
+      box-shadow: var(--shadow);
+    }
+
+    .contact-panel ul {
+      margin-top: 1rem;
+      list-style: none;
+      display: grid;
+      gap: 0.6rem;
+      color: var(--muted);
+    }
+
+    footer {
+      border-top: 1px solid var(--line);
+      background: #05080d;
+      padding: 2rem 0;
+      color: var(--muted);
+      font-size: 0.86rem;
+    }
+
+    footer .container {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px) scale(0.99);
+      transition: opacity 900ms ease, transform 900ms ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    @keyframes driftA { from { transform: translate3d(-1.5%, -1%, 0) scale(1); } to { transform: translate3d(1.5%, 1%, 0) scale(1.04); } }
+    @keyframes driftB { from { transform: translate3d(2%, -2%, 0); } to { transform: translate3d(-2%, 2%, 0); } }
+    @keyframes driftC { from { transform: translate3d(-1%, 1%, 0); } to { transform: translate3d(1%, -1%, 0); } }
+
+    @media (max-width: 1024px) {
+      .services-grid .card,
+      .industries-grid .card,
+      .process-grid .card,
+      .platform-grid .card,
+      .trust-grid .card,
+      .case-grid .card,
+      .insights-grid .card,
+      .about-grid .card { grid-column: span 6; }
+    }
+
+    @media (max-width: 700px) {
+      .container { width: min(100% - 1.5rem, var(--container)); }
+      .nav-links { display: none; }
+      .card { grid-column: span 12 !important; }
+      section { padding: 4.2rem 0; }
+      .hero { min-height: 90vh; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="top-nav">
+    <div class="container">
+      <a href="#home" class="logo">NeuroFlow <span>AI</span></a>
+      <div class="nav-links">
+        <a href="#home">Home</a><a href="#about">About</a><a href="#services">Services</a><a href="#industries">Industries</a>
+        <a href="#process">Process</a><a href="#platform">Platform</a><a href="#trust">Trust</a><a href="#governance">Governance</a>
+        <a href="#case-studies">Case Studies</a><a href="#insights">Insights</a><a href="#contact">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <section class="hero" id="home" aria-label="Hero">
+      <div class="hero-gradient"></div>
+      <canvas id="ambient-network" aria-hidden="true"></canvas>
+      <div class="container hero-content reveal">
+        <div class="kicker">NeuroFlow AI — Enterprise Infrastructure</div>
+        <h1>Enterprise-grade AI &amp; Intelligent Automation Infrastructure</h1>
+        <p>Global-scale AI systems for enterprise transformation, intelligence, and automation. NeuroFlow AI delivers institutional-grade platforms engineered for resilience, governance, and measurable strategic outcomes.</p>
+        <div class="actions">
+          <a class="btn btn-primary" href="#contact">Request Enterprise Consultation</a>
+          <a class="btn btn-secondary" href="#services">View Capabilities</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="container reveal">
+        <h2 class="section-title">About NeuroFlow AI</h2>
+        <p class="section-intro">NeuroFlow AI operates as an enterprise transformation partner focused on mission-critical intelligence infrastructure. Our mandate is to help institutions modernize decision systems, automate complex operating models, and establish durable AI governance at global scale.</p>
+        <div class="grid about-grid">
+          <article class="card"><h3>Mission</h3><p>To architect and deploy trusted AI and automation systems that strengthen enterprise performance, resilience, and strategic clarity.</p></article>
+          <article class="card"><h3>Vision</h3><p>To become the global benchmark for institutional AI infrastructure across regulated industries and critical national operations.</p></article>
+          <article class="card"><h3>Values</h3><p>Governance by design, security-first architecture, accountable innovation, and disciplined delivery through measurable outcomes.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="services">
+      <div class="container reveal">
+        <h2 class="section-title">Enterprise Services</h2>
+        <p class="section-intro">Comprehensive AI and intelligent automation services aligned to board-level transformation objectives and operational continuity requirements.</p>
+        <div class="grid services-grid">
+          <article class="card"><h3>Enterprise AI Platforms</h3><p>Unified AI foundations for cross-business deployment and lifecycle governance.</p></article>
+          <article class="card"><h3>Private LLM Infrastructure</h3><p>Confidential, sovereign model environments for regulated data and internal knowledge systems.</p></article>
+          <article class="card"><h3>Intelligent Automation Systems</h3><p>Workflow and decision automation engineered for high-volume and high-reliability operations.</p></article>
+          <article class="card"><h3>AI Strategy &amp; Transformation</h3><p>Executive roadmaps linking AI initiatives to enterprise operating models and financial performance.</p></article>
+          <article class="card"><h3>Predictive Intelligence Systems</h3><p>Forward-looking analytics and forecasting capabilities for risk, demand, and asset optimization.</p></article>
+          <article class="card"><h3>Data &amp; Intelligence Platforms</h3><p>Integrated data architecture enabling governed, decision-ready intelligence delivery.</p></article>
+          <article class="card"><h3>Autonomous Operations</h3><p>Adaptive control systems for operations requiring continuous optimization and low-latency response.</p></article>
+          <article class="card"><h3>AI Governance Systems</h3><p>Policy controls, monitoring, and assurance mechanisms across model and automation lifecycles.</p></article>
+          <article class="card"><h3>Enterprise AI Security</h3><p>Security frameworks for model protection, threat response, and environment hardening.</p></article>
+          <article class="card"><h3>Digital Infrastructure Engineering</h3><p>Scalable technical foundations spanning compute, integration, and enterprise interoperability.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="industries">
+      <div class="container reveal">
+        <h2 class="section-title">Industries</h2>
+        <p class="section-intro">Sector-specific implementation models built for governance, continuity, and measurable institutional impact.</p>
+        <div class="grid industries-grid">
+          <article class="card"><h3>Financial Services</h3></article><article class="card"><h3>Banking</h3></article>
+          <article class="card"><h3>Insurance</h3></article><article class="card"><h3>Healthcare</h3></article>
+          <article class="card"><h3>Pharma</h3></article><article class="card"><h3>Manufacturing</h3></article>
+          <article class="card"><h3>Energy</h3></article><article class="card"><h3>Utilities</h3></article>
+          <article class="card"><h3>Government</h3></article><article class="card"><h3>Defense</h3></article>
+          <article class="card"><h3>Logistics</h3></article><article class="card"><h3>Telecom</h3></article>
+          <article class="card"><h3>Enterprise IT</h3></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="process">
+      <div class="container reveal">
+        <h2 class="section-title">Enterprise Delivery Process</h2>
+        <div class="grid process-grid">
+          <article class="card"><h3>Assessment</h3></article><article class="card"><h3>Strategy</h3></article><article class="card"><h3>Architecture</h3></article><article class="card"><h3>Engineering</h3></article><article class="card"><h3>Deployment</h3></article><article class="card"><h3>Integration</h3></article><article class="card"><h3>Governance</h3></article><article class="card"><h3>Monitoring</h3></article><article class="card"><h3>Optimization</h3></article><article class="card"><h3>Scaling</h3></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="platform">
+      <div class="container reveal">
+        <h2 class="section-title">NeuroFlow Platform Architecture</h2>
+        <div class="grid platform-grid">
+          <article class="card"><h3>AI Orchestration Layer</h3><p>Centralized model coordination and workload routing across enterprise environments.</p></article>
+          <article class="card"><h3>Automation Engine</h3><p>Deterministic and adaptive process execution for critical workflows.</p></article>
+          <article class="card"><h3>Intelligence Layer</h3><p>Real-time and predictive intelligence pipelines for executive decision systems.</p></article>
+          <article class="card"><h3>Data Layer</h3><p>Trusted data foundation with lineage, quality controls, and policy enforcement.</p></article>
+          <article class="card"><h3>Governance Layer</h3><p>Model controls, approvals, and lifecycle assurance workflows.</p></article>
+          <article class="card"><h3>Security Layer</h3><p>Identity, encryption, segmentation, and continuous posture management.</p></article>
+          <article class="card"><h3>Compliance Layer</h3><p>Regulatory controls aligned to jurisdictional and sector obligations.</p></article>
+          <article class="card"><h3>Integration Layer</h3><p>Interoperability framework connecting core systems, partners, and operations.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="trust">
+      <div class="container reveal" id="governance">
+        <h2 class="section-title">Trust, Governance &amp; Regulatory Alignment</h2>
+        <div class="grid trust-grid">
+          <article class="card"><h3>AI Governance</h3></article><article class="card"><h3>Compliance Frameworks</h3></article>
+          <article class="card"><h3>Risk Management</h3></article><article class="card"><h3>Model Transparency</h3></article>
+          <article class="card"><h3>Auditability</h3></article><article class="card"><h3>Ethics</h3></article>
+          <article class="card"><h3>Security</h3></article><article class="card"><h3>Enterprise Reliability</h3></article>
+          <article class="card"><h3>Regulatory Alignment</h3></article><article class="card"><h3>Data Sovereignty</h3></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="case-studies">
+      <div class="container reveal">
+        <h2 class="section-title">Case Studies</h2>
+        <div class="grid case-grid">
+          <article class="card"><h3>Global Banking Modernization Program</h3><p>An anonymized multinational institution deployed a governed AI decision layer, reducing operational latency and improving portfolio risk response cycles.</p></article>
+          <article class="card"><h3>National Healthcare Intelligence Network</h3><p>A healthcare authority implemented secure predictive capacity planning to coordinate regional care access and optimize resource allocation.</p></article>
+          <article class="card"><h3>Industrial Automation Command Platform</h3><p>A global manufacturer integrated autonomous quality intelligence with plant orchestration systems to stabilize output under variable demand.</p></article>
+          <article class="card"><h3>Logistics Intelligence Grid</h3><p>A strategic logistics operator established end-to-end route intelligence and exception automation for resilient cross-border operations.</p></article>
+          <article class="card"><h3>Energy Grid Optimization Framework</h3><p>A utility consortium deployed a forecasting and control architecture to balance grid stability, demand volatility, and regulatory performance targets.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="insights">
+      <div class="container reveal">
+        <h2 class="section-title">Insights</h2>
+        <div class="grid insights-grid">
+          <article class="card"><h3>AI Research Briefings</h3><p>Applied research analysis on enterprise model deployment, reliability, and operational controls.</p></article>
+          <article class="card"><h3>Enterprise Intelligence Reports</h3><p>Strategic intelligence publications for leadership teams managing transformation at scale.</p></article>
+          <article class="card"><h3>Whitepapers</h3><p>Formal papers detailing architecture standards, governance design, and implementation frameworks.</p></article>
+          <article class="card"><h3>Strategy Papers</h3><p>Board-level analysis for multi-year AI investment planning and program governance.</p></article>
+          <article class="card"><h3>Executive Perspectives</h3><p>Institutional thought leadership addressing evolving regulatory, security, and data priorities.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container reveal">
+        <h2 class="section-title">Enterprise Engagement</h2>
+        <p class="section-intro">NeuroFlow AI supports confidential engagements for institutions pursuing strategic AI modernization and operational transformation.</p>
+        <div class="contact-panel">
+          <p>Engagements are structured for enterprise governance standards and may include NDA-based consultations, private executive briefings, and long-horizon strategic partnerships across global operating regions.</p>
+          <ul>
+            <li>NDA Consultations for regulated transformation programs</li>
+            <li>Private Briefings for executive leadership and governance committees</li>
+            <li>Strategic Partnership Models for multi-phase enterprise deployments</li>
+            <li>Global Delivery Coordination for cross-region operating environments</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div>© NeuroFlow AI. Enterprise AI &amp; Intelligent Automation Infrastructure.</div>
+      <div class="footer-links">
+        <a href="#">Legal</a><a href="#">Compliance</a><a href="#">Privacy</a>
+        <a href="#">Governance</a><a href="#">Terms</a><a href="#">Enterprise Policies</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      const hero = document.querySelector('.hero');
+      const heroContent = document.querySelector('.hero-content');
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      if (!prefersReducedMotion) {
+        hero.addEventListener('mousemove', (event) => {
+          const rect = hero.getBoundingClientRect();
+          const x = (event.clientX - rect.left) / rect.width - 0.5;
+          const y = (event.clientY - rect.top) / rect.height - 0.5;
+          heroContent.style.setProperty('--mx', `${x * 8}px`);
+          heroContent.style.setProperty('--my', `${y * 8}px`);
+        });
+
+        hero.addEventListener('mouseleave', () => {
+          heroContent.style.setProperty('--mx', '0px');
+          heroContent.style.setProperty('--my', '0px');
+        });
+      }
+
+      const reveals = document.querySelectorAll('.reveal');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+
+      reveals.forEach((el) => observer.observe(el));
+
+      const canvas = document.getElementById('ambient-network');
+      const ctx = canvas.getContext('2d');
+      let width = 0;
+      let height = 0;
+      const nodeCount = 42;
+      const nodes = [];
+      let rafId;
+
+      function resize() {
+        width = canvas.width = canvas.offsetWidth * window.devicePixelRatio;
+        height = canvas.height = canvas.offsetHeight * window.devicePixelRatio;
+        ctx.setTransform(window.devicePixelRatio, 0, 0, window.devicePixelRatio, 0, 0);
+      }
+
+      function initNodes() {
+        nodes.length = 0;
+        for (let i = 0; i < nodeCount; i++) {
+          nodes.push({
+            x: Math.random() * canvas.offsetWidth,
+            y: Math.random() * canvas.offsetHeight,
+            vx: (Math.random() - 0.5) * 0.18,
+            vy: (Math.random() - 0.5) * 0.18,
+            r: Math.random() * 1.7 + 0.5
+          });
+        }
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, canvas.offsetWidth, canvas.offsetHeight);
+
+        for (let i = 0; i < nodes.length; i++) {
+          const a = nodes[i];
+          a.x += a.vx;
+          a.y += a.vy;
+
+          if (a.x < 0 || a.x > canvas.offsetWidth) a.vx *= -1;
+          if (a.y < 0 || a.y > canvas.offsetHeight) a.vy *= -1;
+
+          for (let j = i + 1; j < nodes.length; j++) {
+            const b = nodes[j];
+            const dx = a.x - b.x;
+            const dy = a.y - b.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < 140) {
+              const alpha = (1 - dist / 140) * 0.18;
+              ctx.strokeStyle = `rgba(193, 205, 230, ${alpha})`;
+              ctx.lineWidth = 1;
+              ctx.beginPath();
+              ctx.moveTo(a.x, a.y);
+              ctx.lineTo(b.x, b.y);
+              ctx.stroke();
+            }
+          }
+
+          ctx.fillStyle = 'rgba(207, 216, 236, 0.35)';
+          ctx.beginPath();
+          ctx.arc(a.x, a.y, a.r, 0, Math.PI * 2);
+          ctx.fill();
+        }
+
+        rafId = requestAnimationFrame(draw);
+      }
+
+      resize();
+      initNodes();
+      if (!prefersReducedMotion) {
+        draw();
+      }
+
+      window.addEventListener('resize', () => {
+        cancelAnimationFrame(rafId);
+        resize();
+        initNodes();
+        if (!prefersReducedMotion) draw();
+      });
+    })();
+  </script>
+</body>
+</html>
