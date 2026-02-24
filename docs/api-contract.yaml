@@ -1,0 +1,34 @@
+openapi: 3.0.3
+info:
+  title: NEUROFLOW Website API
+  version: 1.0.0
+paths:
+  /v1/content/pages/{slug}:
+    get:
+      summary: Retrieve page content by slug
+      parameters:
+        - in: path
+          name: slug
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: Page payload
+  /v1/case-studies:
+    get:
+      summary: List published case studies
+      responses:
+        '200':
+          description: Case study list
+  /v1/demo-requests:
+    post:
+      summary: Submit enterprise demo request
+      responses:
+        '202':
+          description: Accepted
+  /v1/contact-requests:
+    post:
+      summary: Submit contact request
+      responses:
+        '202':
+          description: Accepted

@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Request Demo | NEUROFLOW</title>
+  <meta name="description" content="Request a guided architecture demo of NEUROFLOW enterprise agentic AI infrastructure." />
+  <link rel="stylesheet" href="assets/site.css" />
+</head>
+<body data-page="demo-request">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header" role="banner">
+    <div class="nav-wrap">
+      <a class="brand" href="index.html" aria-label="NEUROFLOW Home"><span class="brand-mark"></span>NEUROFLOW</a>
+      <nav aria-label="Primary">
+        <ul>
+          <li><a href="platform.html" data-page="platform">Platform</a></li>
+          <li><a href="solutions.html" data-page="solutions">Solutions</a></li>
+          <li><a href="industries.html" data-page="industries">Industries</a></li>
+          <li><a href="security.html" data-page="security">Security</a></li>
+          <li><a href="architecture.html" data-page="architecture">Architecture</a></li>
+          <li><a href="enterprise.html" data-page="enterprise">Enterprise</a></li>
+          <li><a href="case-studies.html" data-page="case-studies">Case Studies</a></li>
+          <li><a href="docs-api.html" data-page="docs-api">Docs/API</a></li>
+          <li><a href="contact.html" data-page="contact">Contact</a></li>
+          <li><a href="demo-request.html" data-page="demo-request">Request Demo</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="section">
+    <section class="container">
+      <p class="kicker">Demo Request</p>
+      <h1>Schedule an enterprise architecture and control-plane demonstration.</h1>
+      <p>Submit operational context and objectives. Our solutions architecture team will prepare a tailored session with topology, controls, and deployment paths.</p>
+
+      <form class="panel" data-demo-form aria-label="Enterprise demo request form">
+        <div class="form-grid">
+          <label>First name<input type="text" name="firstName" required autocomplete="given-name" /></label>
+          <label>Last name<input type="text" name="lastName" required autocomplete="family-name" /></label>
+          <label>Work email<input type="email" name="email" required autocomplete="email" /></label>
+          <label>Company<input type="text" name="company" required autocomplete="organization" /></label>
+          <label>Role
+            <select name="role" required>
+              <option value="">Select role</option>
+              <option>CTO / CIO</option>
+              <option>Enterprise Architect</option>
+              <option>Head of Innovation</option>
+              <option>Security / Compliance Leader</option>
+            </select>
+          </label>
+          <label>Deployment preference
+            <select name="deployment" required>
+              <option value="">Select option</option>
+              <option>Private cloud</option>
+              <option>Dedicated SaaS</option>
+              <option>On-premise</option>
+              <option>Hybrid</option>
+            </select>
+          </label>
+        </div>
+        <label>Use case summary<textarea name="summary" required></textarea></label>
+        <div class="cta-row">
+          <button class="btn primary" type="submit">Submit request</button>
+          <a class="btn secondary" href="architecture.html">Review architecture first</a>
+        </div>
+        <p data-notice hidden role="status" aria-live="polite"></p>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>© 2026 NEUROFLOW.</p>
+      <p><a href="compliance.html">Compliance</a> · <a href="legal.html">Legal</a></p>
+    </div>
+  </footer>
+  <script src="assets/site.js" defer></script>
+</body>
+</html>

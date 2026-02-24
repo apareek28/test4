@@ -1,0 +1,24 @@
+{
+  "collections": [
+    {
+      "name": "pages",
+      "fields": ["slug", "title", "metaDescription", "heroTitle", "heroBody", "sections", "seoKeywords"]
+    },
+    {
+      "name": "caseStudies",
+      "fields": ["clientAlias", "industry", "challenge", "solution", "outcomes", "complianceTags", "publishState"]
+    },
+    {
+      "name": "industries",
+      "fields": ["name", "summary", "priorityUseCases", "frameworks", "ctaLabel"]
+    },
+    {
+      "name": "complianceFrameworks",
+      "fields": ["name", "controlMappings", "evidenceArtifacts", "lastAuditDate"]
+    },
+    {
+      "name": "openRoles",
+      "fields": ["title", "department", "location", "employmentType", "description", "applyUrl"]
+    }
+  ]
+}
